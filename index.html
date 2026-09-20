@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DINZXX - Auto Jual Ore Generator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#0b0b0b;
+    color:#fff;
+    padding:20px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    color:#ff7200;
+    font-size:34px;
+    font-weight:bold;
+    text-shadow:0 0 20px #ff7200;
+}
+
+.subtitle{
+    color:#888;
+    margin-top:5px;
+}
+
+.card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 0 25px rgba(255,114,0,.08);
+}
+
+h2{
+    color:#ff7200;
+    margin-top:0;
+}
+
+label{
+    display:block;
+    color:#aaa;
+    margin-bottom:7px;
+}
+
+select,input{
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    border:1px solid #333;
+    background:#0b0b0b;
+    color:#fff;
+    outline:none;
+    margin-bottom:15px;
+}
+
+select:focus,
+input:focus{
+    border-color:#ff7200;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:9px;
+    background:#ff7200;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+button:hover{
+    background:#ff8b2b;
+}
+
+.copy{
+    background:#333;
+}
+
+.download{
+    background:#ff7200;
+}
+
+.revoke{
+    background:#a92727;
+}
+
+.key{
+    padding:15px;
+    border:1px dashed #ff7200;
+    border-radius:10px;
+    text-align:center;
+    color:#ff8b2b;
+    font-size:20px;
+    font-weight:bold;
+    word-break:break-all;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    height:300px;
+    resize:vertical;
+    background:#080808;
+    color:#ddd;
+    border:1px solid #333;
+    border-radius:9px;
+    padding:12px;
+    font-family:monospace;
+    font-size:12px;
+    margin-top:10px;
+}
+
+.item{
+    background:#0b0b0b;
+    border:1px solid #292929;
+    border-radius:10px;
+    padding:14px;
+    margin-top:10px;
+}
+
+.item-key{
+    color:#ff8b2b;
+    font-weight:bold;
+}
+
+.info{
+    color:#777;
+    font-size:12px;
+    margin-top:6px;
+}
+
+.status{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:5px;
+    font-size:11px;
+    margin-top:8px;
+}
+
+.active{
+    background:#123c1c;
+    color:#45ff70;
+}
+
+.expired{
+    background:#431313;
+    color:#ff5555;
+}
+
+.revoked{
+    background:#49350c;
+    color:#ffc04d;
+}
+
+.empty{
+    color:#666;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+    <div class="logo">DINZXX</div>
+    <div class="subtitle">
+        AUTO JUAL ORE • MONETLOADER GENERATOR
+    </div>
+</div>
+
+<div class="card">
+
+<h2>Generate MonetLoader</h2>
+
+<label>Durasi Key</label>
+
+<select id="duration">
+
+    <optgroup label="JAM">
+        <option value="3600">1 Jam</option>
+        <option value="7200">2 Jam</option>
+        <option value="10800">3 Jam</option>
+        <option value="14400">4 Jam</option>
+        <option value="18000">5 Jam</option>
+        <option value="21600">6 Jam</option>
+        <option value="25200">7 Jam</option>
+        <option value="28800">8 Jam</option>
+        <option value="32400">9 Jam</option>
+        <option value="36000">10 Jam</option>
+        <option value="39600">11 Jam</option>
+        <option value="43200">12 Jam</option>
+    </optgroup>
+
+    <optgroup label="HARI">
+        <option value="86400">1 Hari</option>
+        <option value="172800">2 Hari</option>
+        <option value="259200">3 Hari</option>
+        <option value="345600">4 Hari</option>
+        <option value="432000">5 Hari</option>
+        <option value="518400">6 Hari</option>
+        <option value="604800">7 Hari</option>
+        <option value="691200">8 Hari</option>
+        <option value="777600">9 Hari</option>
+        <option value="864000">10 Hari</option>
+    </optgroup>
+
+    <option value="0">Permanen</option>
+
+</select>
+
+<label>Nama File</label>
+
+<input
+    id="filename"
+    value="AutoJualOre"
+    placeholder="Nama file Lua"
+>
+
+<button onclick="generate()">
+    GENERATE KEY + LUA
+</button>
+
+</div>
+
+
+<div class="card" id="result" style="display:none;">
+
+<h2>Key Berhasil Dibuat</h2>
+
+<div class="key" id="newKey"></div>
+
+<button class="copy" onclick="copyKey()">
+    COPY KEY
+</button>
+
+<textarea id="luaCode" readonly></textarea>
+
+<button class="download" onclick="downloadLua()">
+    DOWNLOAD MONETLOADER
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Daftar Key</h2>
+
+<div id="keyList"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const STORAGE = "DINZXX_AUTOJUALORE_KEYS";
+
+let currentKey = "";
+let currentLua = "";
+let currentFilename = "AutoJualOre";
+
+
+function randomKey(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let random = "";
+
+    for(let i = 0; i < 6; i++){
+
+        random +=
+            chars[
+                Math.floor(
+                    Math.random() * chars.length
+                )
+            ];
+
+    }
+
+    return "ORE-" + random + "-DINZXX";
+}
+
+
+function durationText(seconds){
+
+    if(seconds === 0){
+        return "Permanen";
+    }
+
+    if(seconds % 86400 === 0){
+        return (seconds / 86400) + " Hari";
+    }
+
+    return (seconds / 3600) + " Jam";
+}
+
+
+function createLua(key, duration){
+
+return `script_name("Auto Jual Ore")
+script_author("DINZXX")
+
+require "lib.moonloader"
+
+local aktif = false
+local keyAktif = false
+local waktuKadaluarsa = 0
+local keyPermanen = false
+
+-- ==========================================
+-- DAFTAR KEY
+-- ==========================================
+
+local KEYS = {
+    ["${key}"] = ${duration}
+}
+
+-- ==========================================
+-- CEK KEY
+-- ==========================================
+
+function cekKey()
+
+    if not keyAktif then
+        return false
+    end
+
+    -- Jika permanen
+    if keyPermanen then
+        return true
+    end
+
+    -- Jika waktu sudah habis
+    if os.time() >= waktuKadaluarsa then
+
+        keyAktif = false
+        aktif = false
+
+        sampAddChatMessage(
+            "{FF4444}[AutoJualOre] {FFFFFF}Key sudah expired.",
+            -1
+        )
+
+        return false
+    end
+
+    return true
+end
+
+-- ==========================================
+-- FORMAT WAKTU
+-- ==========================================
+
+function formatWaktu(sisa)
+
+    if sisa <= 0 then
+        return "Expired"
+    end
+
+    local hari =
+        math.floor(sisa / 86400)
+
+    local jam =
+        math.floor((sisa % 86400) / 3600)
+
+    local menit =
+        math.floor((sisa % 3600) / 60)
+
+    local detik =
+        math.floor(sisa % 60)
+
+    return string.format(
+        "%d hari %02d jam %02d menit %02d detik",
+        hari,
+        jam,
+        menit,
+        detik
+    )
+end
+
+-- ==========================================
+-- MAIN
+-- ==========================================
+
+function main()
+
+    while not isSampAvailable() do
+        wait(100)
+    end
+
+    sampAddChatMessage(
+        "{00BFFF}[AutoJualOre] {FFFFFF}Script berhasil dimuat.",
+        -1
+    )
+
+    sampAddChatMessage(
+        "{00BFFF}[AutoJualOre] {FFFFFF}Gunakan /key KEY untuk aktivasi.",
+        -1
+    )
+
+    -- ======================================
+    -- COMMAND /KEY
+    -- ======================================
+
+    sampRegisterChatCommand("key", function(arg)
+
+        if arg == nil or arg == "" then
+
+            sampAddChatMessage(
+                "{FFFF00}[AutoJualOre] {FFFFFF}Gunakan: /key KEY",
+                -1
+            )
+
+            return
+        end
+
+        local key = string.upper(arg)
+
+        local durasi = KEYS[key]
+
+        if durasi == nil then
+
+            sampAddChatMessage(
+                "{FF4444}[AutoJualOre] {FFFFFF}Key tidak valid.",
+                -1
+            )
+
+            return
+        end
+
+        -- Reset status
+        aktif = false
+        keyAktif = true
+
+        -- ==================================
+        -- KEY PERMANEN
+        -- ==================================
+
+        if durasi == 0 then
+
+            keyPermanen = true
+            waktuKadaluarsa = 0
+
+            sampAddChatMessage(
+                "{00FF00}[AutoJualOre] {FFFFFF}Key PERMANEN berhasil diaktifkan!",
+                -1
+            )
+
+        -- ==================================
+        -- KEY BERDASARKAN WAKTU
+        -- ==================================
+
+        else
+
+            keyPermanen = false
+
+            waktuKadaluarsa =
+                os.time() + durasi
+
+            sampAddChatMessage(
+                "{00FF00}[AutoJualOre] {FFFFFF}Key berhasil diaktifkan!",
+                -1
+            )
+
+            sampAddChatMessage(
+                "{00BFFF}[AutoJualOre] {FFFFFF}Masa aktif: ${durationText(duration)}.",
+                -1
+            )
+
+        end
+
+        sampAddChatMessage(
+            "{00BFFF}[AutoJualOre] {FFFFFF}Gunakan /ajualore untuk mulai.",
+            -1
+        )
+
+    end)
+
+    -- ======================================
+    -- COMMAND /AJAULORE
+    -- ======================================
+
+    sampRegisterChatCommand("ajualore", function()
+
+        if not cekKey() then
+
+            sampAddChatMessage(
+                "{FF4444}[AutoJualOre] {FFFFFF}Tidak ada key aktif.",
+                -1
+            )
+
+            return
+        end
+
+        aktif = not aktif
+
+        if aktif then
+
+            sampAddChatMessage(
+                "{00FF00}[AutoJualOre] {FFFFFF}AKTIF.",
+                -1
+            )
+
+            -- Langsung jual saat ON
+            sampSendChat("/jualore")
+
+        else
+
+            sampAddChatMessage(
+                "{FF4444}[AutoJualOre] {FFFFFF}NONAKTIF.",
+                -1
+            )
+
+        end
+
+    end)
+
+    -- ======================================
+    -- COMMAND /STATUSORE
+    -- ======================================
+
+    sampRegisterChatCommand("statusore", function()
+
+        if not cekKey() then
+
+            sampAddChatMessage(
+                "{FF4444}[AutoJualOre] {FFFFFF}Key tidak aktif / sudah expired.",
+                -1
+            )
+
+            return
+        end
+
+        if keyPermanen then
+
+            sampAddChatMessage(
+                "{00FF00}[AutoJualOre] {FFFFFF}Key: PERMANEN",
+                -1
+            )
+
+        else
+
+            local sisa =
+                waktuKadaluarsa - os.time()
+
+            sampAddChatMessage(
+                "{00BFFF}[AutoJualOre] {FFFFFF}Sisa waktu: "
+                .. formatWaktu(sisa),
+                -1
+            )
+
+        end
+
+        if aktif then
+
+            sampAddChatMessage(
+                "{00FF00}[AutoJualOre] {FFFFFF}Status: ON",
+                -1
+            )
+
+        else
+
+            sampAddChatMessage(
+                "{FF4444}[AutoJualOre] {FFFFFF}Status: OFF",
+                -1
+            )
+
+        end
+
+    end)
+
+    -- ======================================
+    -- AUTO JUAL ORE
+    -- ======================================
+
+    while true do
+
+        wait(100)
+
+        if aktif then
+
+            if not cekKey() then
+
+                aktif = false
+
+            else
+
+                -- Tunggu 52 detik
+                wait(52000)
+
+                if aktif and cekKey() then
+
+                    sampSendChat("/jualore")
+
+                end
+
+            end
+
+        end
+
+    end
+end
+`;
+}
+
+
+function generate(){
+
+    const duration =
+        parseInt(
+            document.getElementById("duration").value
+        );
+
+    currentFilename =
+        document.getElementById("filename").value.trim()
+        || "AutoJualOre";
+
+    currentKey = randomKey();
+
+    currentLua =
+        createLua(
+            currentKey,
+            duration
+        );
+
+    let keys =
+        JSON.parse(
+            localStorage.getItem(STORAGE) || "[]"
+        );
+
+    keys.push({
+
+        key: currentKey,
+
+        duration: duration,
+
+        durationText:
+            durationText(duration),
+
+        created:
+            Date.now(),
+
+        revoked:false
+
+    });
+
+    localStorage.setItem(
+        STORAGE,
+        JSON.stringify(keys)
+    );
+
+    document.getElementById("newKey")
+        .textContent = currentKey;
+
+    document.getElementById("luaCode")
+        .value = currentLua;
+
+    document.getElementById("result")
+        .style.display = "block";
+
+    renderKeys();
+
+    downloadLua();
+}
+
+
+function downloadLua(){
+
+    if(!currentLua){
+        return;
+    }
+
+    const blob =
+        new Blob(
+            [currentLua],
+            {type:"text/plain"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        currentFilename
+            .replace(/\.lua$/i,"")
+        + ".lua";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+}
+
+
+function copyKey(){
+
+    navigator.clipboard.writeText(currentKey);
+
+    alert("Key berhasil dicopy!");
+}
+
+
+function getStatus(item){
+
+    if(item.revoked){
+
+        return {
+            text:"REVOKED",
+            className:"revoked"
+        };
+
+    }
+
+    if(item.duration === 0){
+
+        return {
+            text:"AKTIF",
+            className:"active"
+        };
+
+    }
+
+    if(
+        Date.now() >
+        item.created +
+        item.duration * 1000
+    ){
+
+        return {
+            text:"EXPIRED",
+            className:"expired"
+        };
+
+    }
+
+    return {
+        text:"AKTIF",
+        className:"active"
+    };
+}
+
+
+function revokeKey(index){
+
+    let keys =
+        JSON.parse(
+            localStorage.getItem(STORAGE) || "[]"
+        );
+
+    if(!keys[index]){
+        return;
+    }
+
+    keys[index].revoked = true;
+
+    localStorage.setItem(
+        STORAGE,
+        JSON.stringify(keys)
+    );
+
+    renderKeys();
+}
+
+
+function renderKeys(){
+
+    const list =
+        document.getElementById("keyList");
+
+    let keys =
+        JSON.parse(
+            localStorage.getItem(STORAGE) || "[]"
+        );
+
+    if(keys.length === 0){
+
+        list.innerHTML =
+            '<div class="empty">Belum ada key.</div>';
+
+        return;
+    }
+
+    list.innerHTML = "";
+
+    keys.forEach((item,index)=>{
+
+        const status =
+            getStatus(item);
+
+        const created =
+            new Date(item.created)
+            .toLocaleString("id-ID");
+
+        const div =
+            document.createElement("div");
+
+        div.className = "item";
+
+        div.innerHTML = `
+
+            <div class="item-key">
+                ${item.key}
+            </div>
+
+            <div class="info">
+                Durasi: ${item.durationText}
+            </div>
+
+            <div class="info">
+                Dibuat: ${created}
+            </div>
+
+            <span class="status ${status.className}">
+                ${status.text}
+            </span>
+
+            ${
+                !item.revoked
+                ?
+                `<button
+                    class="revoke"
+                    onclick="revokeKey(${index})">
+                    REVOKE
+                </button>`
+                :
+                ""
+            }
+
+        `;
+
+        list.appendChild(div);
+
+    });
+}
+
+
+renderKeys();
+
+setInterval(
+    renderKeys,
+    1000
+);
+
+</script>
+
+</body>
+</html>
